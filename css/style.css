@@ -1,0 +1,12 @@
+html {
+    background-color:#414141;
+}
+
+.searchSelect {
+    display:flex;
+    justify-content: center;
+}
+
+.searchSelect input, .searchSelect select {
+    height:2rem;
+}
