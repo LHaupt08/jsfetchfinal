@@ -1,13 +1,15 @@
 "use strict";
 
-var groupDropdown = document.getElementById("group")
-var typeDropdown = document.getElementById("type")
-var nameDropdown = document.getElementById("name")
+var groupDropdown = document.getElementById("group");
+var typeDropdown = document.getElementById("type");
+var nameDropdown = document.getElementById("name");
 
-var searchBar = document.getElementById("search")
-var sumbit = document.getElementById("sumbit")
+var searchBar = document.getElementById("search");
+var sumbit = document.getElementById("sumbit");
 
-var pokeimg = document.getElementById("pokeimg")
+var pokeimg = document.getElementById("pokeimg");
+var pokename = document.getElementById("pokeName");
+var thepokemon = document.getElementById("thepokemon");
 
 
 // *Function for taking data from api
@@ -15,7 +17,7 @@ async function getData() {
 
     var groupValue = groupDropdown.value;
     var typeValue = typeDropdown.value;
-    var nameValue = nameDropdown.value
+    var nameValue = nameDropdown.value;
     var searchInput = searchBar.value.toLowerCase();
 
 
@@ -31,10 +33,18 @@ async function getData() {
 
         const pokeData = await response.json();
         console.log(pokeData);
-        // ! Fix this
-        const result = `${pokeData}.${typeValue}.${nameValue}`
-        pokeimg.src = pokeData.sprites.front_default;
-        pokeimg.style.display = "block";
+        //const result = `${pokeData}.${typeValue}.${nameValue}`
+        const result = `${pokeData}`
+        console.log(result);
+        
+        // General Result
+
+        if (result == pokeData) {
+            pokeimg.src = pokeData.sprites.front_default;
+            pokeimg.style.display = "block";
+
+            pokename.innerHTML = pokeData.name;
+        }
 
     }catch (error) {
         console.error(error.message);

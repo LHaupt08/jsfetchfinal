@@ -1,12 +1,31 @@
-html {
-    background-color:#414141;
+@import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
+
+body {
+    background:#414141;
+}
+
+.row {
+    margin: 0px;
 }
 
 .searchSelect {
+    font-family: "Bytesized", sans-serif;
+    font-size: 20px;
+
     display:flex;
     justify-content: center;
+    background:none;
 }
 
 .searchSelect input, .searchSelect select {
     height:2rem;
+}
+
+
+.pokedisplay {
+    color:white;
+}
+
+.pokeimg img {
+    width:20rem;
 }

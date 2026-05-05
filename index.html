@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IDK Yet</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
     <link href="./css/style.css" rel="stylesheet" />
     <script src="./js/index.js" async></script>
 
@@ -14,34 +18,57 @@
 
 <body>
 
-    <div class="searchSelect">
+    <div class="searchSelect mb-2">
 
         <select id="group">
 
-            <option value="pokemon">Pokemon</option>
+            <option value="pokemon">POKEMON</option>
 
         </select>
 
         <select id="type">
 
-            <option value="sprites">Sprites</option>
+            <option value="sprites">SPRITES</option>
 
         </select>
 
         <select id="name">
 
-            <option value="front_default">Default (Front)</option>
+            <option value="front_default">DEFAULT (FRONT)</option>
 
         </select>
 
         <input type="search" size="40" id="search">
-        <input type="submit" onclick="getData()" id="submit">
+        <input type="submit" onclick="getData()" id="submit" class="text-uppercase">
 
     </div>
 
-    <div class="pokeimg">
+    <div class="container-fluid">
 
-        <img alt="Pokemon Image" style="display:none" id="pokeimg">
+        <div class="row">
+
+            <div class="col-4 mx-1 text-light bg-secondary rounded-1">
+
+                <div class="pokeimg d-flex justify-content-center bg-primary rounded-4">
+
+                <img alt="Pokemon Image" style="display:none" id="pokeimg">
+
+                </div>
+
+                <h2 id="pokeName" class="text-capitalize"></h2>
+                <h3 id="thepokemon"></h3>
+
+            </div>
+
+            <div class="col-3">
+
+            </div>
+
+            <div class="col-5">
+
+            </div>
+
+        </div>
 
     </div>
 
