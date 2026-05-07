@@ -60,6 +60,11 @@ async function getData() {
             if (!response.ok) {
             throw new Error(`response status: ${response.status}`);
             }
+                const speciesData = await response.json();
+                // ! Figure out how to call numbered entry
+                console.log(speciesData);
+
+                pokedexNum.innerHTML = speciesData.pokedex_numbers.entry_number;
 
 
             }catch (error) {
