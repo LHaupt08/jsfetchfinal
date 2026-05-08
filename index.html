@@ -18,6 +18,7 @@
 
 <body>
 
+    <!-- * Search Bar -->
     <div class="searchSelect mb-2">
 
         <select id="group">
@@ -26,17 +27,17 @@
 
         </select>
 
-        <select id="type">
+        <select id="type" class="bg-secondary">
 
-            <option value="">ALL DATA</option>
-            <option value="sprites">SPRITES</option>
+            <option value=""></option>
+            <!--<option value="sprites">SPRITES</option>-->
 
         </select>
 
-        <select id="name">
+        <select id="name" class="bg-secondary">
 
-            <option value="">ALL DATA</option>
-            <option value="front_default">DEFAULT (FRONT)</option>
+            <option value=""></option>
+            <!--<option value="front_default">DEFAULT (FRONT)</option><-->
 
         </select>
 
@@ -45,13 +46,18 @@
 
     </div>
 
-    <div class="container-fluid">
+
+
+    <div class="container-fluid p-0">
 
         <div class="row">
 
-            <div class="col-4 mx-1 text-light bg-secondary rounded-1">
 
-                <div class="pokeimg d-flex justify-content-center bg-primary rounded-4">
+
+            <!-- * Pokemon Display -->
+            <div class="col-4 text-light bg-secondary rounded-1 pokedisplay">
+
+                <div class="pokeimg d-flex justify-content-center bg-primary rounded-4 mx-1">
 
                     <img alt="Pokemon Image" style="display:none" id="pokeimg">
 
@@ -62,17 +68,163 @@
 
             </div>
 
-            <div class="col-3">
+
+
+            <!-- * Pokemon Stats -->
+            <div class="col-3 text-light bg-secondary rounded-1 pokedisplay mx-1 d-flex flex-column justify-content-evenly">
+
+
+                <div class="row w-auto">
+
+                    <div class="col-1 p-0">
+
+                        <p class="m-0">HP:</p>
+
+                    </div>
+
+                    <div class="col-11 p-0">
+
+                        <div class="progress mt-1" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250" id="hpbar">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+                <div class="row w-auto">
+
+                    <div class="col-1 p-0">
+
+                        <p class="m-0">ATK:</p>
+
+                    </div>
+
+                    <div class="col-11 p-0">
+
+                        <div class="progress mt-1" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250" id="atkbar">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+                <div class="row w-auto">
+                    
+                    <div class="col-1 p-0">
+
+                        <p class="m-0">DEF:</p>
+
+                    </div>
+
+                    <div class="col-11 p-0">
+
+                        <div class="progress mt-1" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250" id="defbar">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+                <div class="row w-auto">
+
+                    <div class="col-1 p-0">
+
+                        <p class="m-0">SAT:</p>
+
+                    </div>
+
+                    <div class="col-11 p-0">
+
+                        <div class="progress mt-1" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250" id="satbar">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+                <div class="row w-auto">
+
+                    <div class="col-1 p-0">
+
+                        <p class="m-0">SDF:</p>
+
+                    </div>
+
+                    <div class="col-11 p-0">
+
+                        <div class="progress mt-1" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250" id="sdfbar">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+                <div class="row w-auto">
+
+                    <div class="col-1 p-0">
+
+                        <p class="m-0">SPD:</p>
+
+                    </div>
+
+                    <div class="col-11 p-0">
+
+                        <div class="progress mt-1" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250" id="spdbar">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+
+
+                <div class="row w-auto">
+
+                    <div class="col-1 p-0">
+
+                        <p class="m-0">BST:</p>
+
+                    </div>
+
+                    <div class="col-11 p-0">
+
+                        <div class="progress mt-1" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="720" id="spdbar">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+
 
             </div>
 
-            <div class="col-5">
+
+
+            <div class="col-5 text-light bg-secondary rounded-1 pokedisplay mx-1">
 
             </div>
 
         </div>
 
     </div>
+
+
+
 
 </body>
 

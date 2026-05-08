@@ -6,6 +6,7 @@ body {
 
 .row {
     margin: 0px;
+    flex-wrap:nowrap;
 }
 
 .searchSelect {
@@ -23,9 +24,13 @@ body {
 
 
 .pokedisplay {
-    color:white;
+    height:25.7rem;
 }
 
+.pokeimg {
+    height:20rem;
+}
 .pokeimg img {
     width:20rem;
+    image-rendering: pixelated;
 }

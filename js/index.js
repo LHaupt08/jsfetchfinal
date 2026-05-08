@@ -11,6 +11,15 @@ var pokeimg = document.getElementById("pokeimg");
 var pokename = document.getElementById("pokeName");
 var pokedexNum = document.getElementById("pokedexNum");
 
+var hpbar = document.getElementById("hpbar");
+var atkbar = document.getElementById("atkbar");
+var defbar = document.getElementById("defbar");
+var satbar = document.getElementById("spabar");
+var spdbar = document.getElementById("spdbar");
+var spdbar = document.getElementById("spdbar");
+
+var bsdbar = document.getElementById("bsdbar");
+
 
 // *Function for taking data from api
 async function getData() {
@@ -46,9 +55,9 @@ async function getData() {
             pokeimg.style.display = "block";
 
             pokename.innerHTML = pokeData.name;
-            //pokedexNum.innerHTML = pokeData.pokedex_numbers;
-            //console.log(pokeData.pokedex_numbers);
 
+
+            hpbar.innerHTML = pokeData.stats[0].base_stat;
 
 
             const speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
@@ -61,10 +70,8 @@ async function getData() {
             throw new Error(`response status: ${response.status}`);
             }
                 const speciesData = await response.json();
-                // ! Figure out how to call numbered entry
-                console.log(speciesData);
 
-                pokedexNum.innerHTML = speciesData.pokedex_numbers.entry_number;
+                pokedexNum.innerHTML = "#" + speciesData.pokedex_numbers[0].entry_number;
 
 
             }catch (error) {
