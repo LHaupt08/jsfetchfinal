@@ -11,14 +11,16 @@ var pokeimg = document.getElementById("pokeimg");
 var pokename = document.getElementById("pokeName");
 var pokedexNum = document.getElementById("pokedexNum");
 
-var hpbar = document.getElementById("hpbar");
-var atkbar = document.getElementById("atkbar");
-var defbar = document.getElementById("defbar");
-var satbar = document.getElementById("spabar");
-var spdbar = document.getElementById("spdbar");
-var spdbar = document.getElementById("spdbar");
+var statbar = [
+    document.getElementById("hpbar"),
+    document.getElementById("atkbar"),
+    document.getElementById("defbar"),
+    document.getElementById("satbar"),
+    document.getElementById("sdfbar"),
+    document.getElementById("spdbar")
+];
 
-var bsdbar = document.getElementById("bsdbar");
+var bstbar = document.getElementById("bstbar");
 
 
 // *Function for taking data from api
@@ -56,8 +58,32 @@ async function getData() {
 
             pokename.innerHTML = pokeData.name;
 
+            var bsttotal=0;
+            for (var i=0; i < 6; i++) {
 
-            hpbar.innerHTML = pokeData.stats[0].base_stat;
+                var pokestat = pokeData.stats[i].base_stat;
+                statbar[i].innerHTML = pokestat;
+
+                var widthValue = (pokestat * 100) / 250;
+                statbar[i].setAttribute("aria-valuenow",widthValue);
+                statbar[i].style.width=widthValue + "%";
+
+                if (pokestat <= 50){
+                    statbar[i].classList.add("bg-danger");
+                } else if(pokestat > 50 & pokestat <= 100) {
+                    statbar[i].classList.add("bg-warning");
+                } else if(pokestat > 100 & pokestat <= 175){
+                    statbar[i].classList.add("bg-success");
+                } else {
+                    statbar[i].classList.add("bg-info");
+                }
+                bsttotal+=pokestat;
+
+            }
+
+            // Work on displaying BST, could be included in the stats but if not calculate it.
+            bstbar = bsttotal;
+
 
 
             const speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
