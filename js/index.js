@@ -25,6 +25,7 @@ var bstbar = document.getElementById("bstbar");
 
 // *Function for taking data from api
 async function getData() {
+    console.clear();
 
     var groupValue = groupDropdown.value;
     var typeValue = typeDropdown.value;
@@ -59,7 +60,16 @@ async function getData() {
             pokename.innerHTML = pokeData.name;
 
             var bsttotal=0;
-            for (var i=0; i < 6; i++) {
+            for (var i=0; i < pokeData.stats.length; i++) {
+
+                var removeItem = statbar[i].classList.item(1);
+                
+                
+                if (removeItem != null) {
+                    statbar[i].classList.remove(removeItem);
+                }
+
+                
 
                 var pokestat = pokeData.stats[i].base_stat;
                 statbar[i].innerHTML = pokestat;
@@ -68,21 +78,41 @@ async function getData() {
                 statbar[i].setAttribute("aria-valuenow",widthValue);
                 statbar[i].style.width=widthValue + "%";
 
-                if (pokestat <= 50){
+                
+                if (pokestat < 50){
                     statbar[i].classList.add("bg-danger");
-                } else if(pokestat > 50 & pokestat <= 100) {
+                } else if(pokestat >= 50 & pokestat <= 99) {
                     statbar[i].classList.add("bg-warning");
-                } else if(pokestat > 100 & pokestat <= 175){
+                } else if(pokestat >= 100 & pokestat <= 174){
                     statbar[i].classList.add("bg-success");
-                } else {
+                } else if(pokestat >= 175) {
                     statbar[i].classList.add("bg-info");
                 }
-                bsttotal+=pokestat;
-
+                bsttotal += pokestat;
+            }
+            console.log(bstbar);
+            removeItem = bstbar.classList.item(1);
+                
+            if (removeItem != null) {
+                bstbar.classList.remove(removeItem);
             }
 
-            // Work on displaying BST, could be included in the stats but if not calculate it.
-            bstbar = bsttotal;
+            // ! Finish BST display
+            console.log(bsttotal);
+            widthValue = (bsttotal * 100) / 720;
+            bstbar.setAttribute("aria-valuenow",widthValue);
+            bstbar.style.width=widthValue + "%";
+
+            if (bsttotal < 50){
+                    bstbar.classList.add("bg-danger");
+                } else if(bsttotal >= 50 & bsttotal <= 99) {
+                    bstbar.classList.add("bg-warning");
+                } else if(bsttotal >= 100 & bsttotal <= 174){
+                    bstbar.classList.add("bg-success");
+                } else if(bsttotal >= 175) {
+                    bstbar.classList.add("bg-info");
+                }
+
 
 
 
