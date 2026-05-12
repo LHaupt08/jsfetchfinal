@@ -59,6 +59,27 @@ async function getData() {
 
             pokename.innerHTML = pokeData.name;
 
+            // * Pokemon Dex Number
+            const speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
+
+            try {
+                const response = await fetch(speciesurl, {
+                    method: "GET"
+            });
+            if (!response.ok) {
+            throw new Error(`response status: ${response.status}`);
+            }
+                const speciesData = await response.json();
+
+                pokedexNum.innerHTML = "#" + speciesData.pokedex_numbers[0].entry_number;
+
+
+            }catch (error) {
+                console.error(error.message);
+            }
+
+
+            // * Stats
             var bsttotal=0;
             for (var i=0; i < pokeData.stats.length; i++) {
 
@@ -97,10 +118,9 @@ async function getData() {
                 bstbar.classList.remove(removeItem);
             }
 
-            // ! Finish BST display
             console.log(bsttotal);
             bstbar.innerHTML = bsttotal;
-            widthValue = (bsttotal * 100) / 720;
+            widthValue = (bsttotal * 100) / 780;
             bstbar.setAttribute("aria-valuenow",widthValue);
             bstbar.style.width=widthValue + "%";
 
@@ -115,26 +135,30 @@ async function getData() {
                 }
 
 
+            var pokeAble = pokeData.abilities
+
+            for(var i=0; i < pokeData.abilities.length; i++){
+                const current = pokeAble[i].ability.name;
+
+                const abilityurl = `https://pokeapi.co/api/v2/ability/${current}`;
+
+                try {
+                    const response = await fetch(abilityurl, {
+                        method: "GET"
+                });
+                if (!response.ok) {
+                throw new Error(`response status: ${response.status}`);
+                }
+                    const abilityData = await response.json();
+
+                    console.log(abilityData.effect_entries[2].effect);
 
 
-            const speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
+                }catch (error) {
+                    console.error(error.message);
+                }
 
-            try {
-                const response = await fetch(speciesurl, {
-                    method: "GET"
-            });
-            if (!response.ok) {
-            throw new Error(`response status: ${response.status}`);
             }
-                const speciesData = await response.json();
-
-                pokedexNum.innerHTML = "#" + speciesData.pokedex_numbers[0].entry_number;
-
-
-            }catch (error) {
-                console.error(error.message);
-            }
-
 
             
         }
