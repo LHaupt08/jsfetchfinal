@@ -99,17 +99,18 @@ async function getData() {
 
             // ! Finish BST display
             console.log(bsttotal);
+            bstbar.innerHTML = bsttotal;
             widthValue = (bsttotal * 100) / 720;
             bstbar.setAttribute("aria-valuenow",widthValue);
             bstbar.style.width=widthValue + "%";
 
             if (bsttotal < 50){
                     bstbar.classList.add("bg-danger");
-                } else if(bsttotal >= 50 & bsttotal <= 99) {
+                } else if(bsttotal >= 200 & bsttotal <= 449) {
                     bstbar.classList.add("bg-warning");
-                } else if(bsttotal >= 100 & bsttotal <= 174){
+                } else if(bsttotal >= 450 & bsttotal <= 649){
                     bstbar.classList.add("bg-success");
-                } else if(bsttotal >= 175) {
+                } else if(bsttotal >= 650) {
                     bstbar.classList.add("bg-info");
                 }
 
