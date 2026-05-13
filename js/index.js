@@ -140,8 +140,8 @@ async function getData() {
 
             var pokeAble = pokeData.abilities;
 
-            for(var i=0; i < pokeData.abilities.length; i++){
-                const current = pokeAble[i].ability.name;
+            for(var j=0; j < pokeData.abilities.length; j++){
+                const current = pokeAble[j].ability.name;
 
                 const abilityurl = `https://pokeapi.co/api/v2/ability/${current}`;
 
@@ -202,11 +202,13 @@ async function getData() {
                     if (i=0){
                         carouselItem.classList.add("active");
                     }
-                    carouselArea.appendChild(carouselItem);
-                    carouselItem.appendChild(carouselImage);
-                    carouselItem.appendChild(carouselCap);
                     carouselCap.appendChild(slideLabel);
                     carouselCap.appendChild(slideCon);
+                    carouselItem.appendChild(carouselCap);
+                    carouselItem.appendChild(carouselImage);
+                    carouselArea.appendChild(carouselItem);
+
+                    // ! Fixed looping, need to fix display
 
 
                 }catch (error) {
