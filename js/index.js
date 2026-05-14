@@ -181,11 +181,28 @@ async function getData() {
 
                     if (pokeData.abilities.length == 1 && j==0) {
 
+                        for (var g=0; g < 2; g++){
+
+                        curLabel = document.getElementById("label-" + (j+2+g));
+                        curContent = document.getElementById("content-" + (j+2+g));
+
                         curLabel.innerHTML = "n/a";
                         curContent.innerHTML = "n/a";
-                        console.log("clear");
+                        
+                        }
+                    
+
+                    } else if (pokeData.abilities.length == 2 && j==1) {
+
+                        curLabel = document.getElementById("label-" + (j+2));
+                        curContent = document.getElementById("content-" + (j+2));
+
+                        curLabel.innerHTML = "n/a";
+                        curContent.innerHTML = "n/a";
 
                     }
+
+
 
                 }catch (error) {
                     console.error(error.message);
