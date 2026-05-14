@@ -22,10 +22,6 @@ var statbar = [
 
 var bstbar = document.getElementById("bstbar");
 
-var carouselInd = document.getElementById("carouselIndicator");
-var carouselArea = document.getElementById("carouselArea");
-
-
 // *Function for taking data from api
 async function getData() {
     console.clear();
@@ -154,7 +150,7 @@ async function getData() {
                 }
                     const abilityData = await response.json();
 
-                    console.log(abilityData.effect_entries[2].effect);
+                    console.log(abilityData.effect_entries[abilityData.effect_entries.length - 1]);
                     
                     // carouselInd[0]: <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     // carouselInd[1-2]: <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -175,41 +171,21 @@ async function getData() {
                                                 </div>
                                             </div>*/
 
-                    var carouselItem = document.createElement("div");
-                    carouselItem.classList.add("carousel-item");
-
-                    var carouselImage = document.createElement("img");
-                    carouselImage.setAttribute("src", "../img/pose.png");
-                    carouselImage.setAttribute("alt", "...");
-                    carouselImage.style.opacity="0.5";
-                    carouselImage.classList.add("d-block");
-                    carouselImage.classList.add("w-100");
+                    var curSlide = document.getElementById("slide-" + (j+1));
+                    var curLabel = document.getElementById("label-" + (j+1));
+                    var curContent = document.getElementById("content-" + (j+1));
+                    console.log(curContent);
+                    curLabel.innerHTML = current;
+                    curContent.innerHTML = abilityData.effect_entries[abilityData.effect_entries.length - 1].short_effect;
 
 
-                    var carouselCap = document.createElement("div");
-                    carouselCap.classList.add("carousel-caption");
-                    carouselCap.classList.add("d-none");
-                    carouselCap.classList.add("d-md-block");
+                    if (pokeData.abilities.length == 1 && j==0) {
 
+                        curLabel.innerHTML = "n/a";
+                        curContent.innerHTML = "n/a";
+                        console.log("clear");
 
-                    var slideLabel = document.createElement("h5");
-                    slideLabel.innerHTML = "Test Label";
-
-                    var slideCon = document.createElement("p");
-                    slideCon.innerHTML="Test Content";
-
-
-                    if (i=0){
-                        carouselItem.classList.add("active");
                     }
-                    carouselCap.appendChild(slideLabel);
-                    carouselCap.appendChild(slideCon);
-                    carouselItem.appendChild(carouselCap);
-                    carouselItem.appendChild(carouselImage);
-                    carouselArea.appendChild(carouselItem);
-
-                    // ! Fixed looping, need to fix display
-
 
                 }catch (error) {
                     console.error(error.message);
