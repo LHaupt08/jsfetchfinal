@@ -17,7 +17,7 @@ async function getTypes() {
                 var typeName = typesData.name;
                 pokeType[t]=typeName;
 
-                pokeTypeImg[t]=typesData.sprites.generation-ix.scarlet-violet.symbol_icon;
+                pokeTypeImg[t]=typesData.sprites["generation-ix"]["scarlet-violet"]["symbol-icon"];
 
             }catch (error) {
                 console.error(error.message);

@@ -218,7 +218,7 @@ async function getData() {
 
                     displayType.innerHTML =thisType;
                     
-                    displayTypeImg.setAttribute("src",typeImgUrl);
+                    displayTypeImg.setAttribute("src",pokeTypeImg[t]);
                     
                 }else{
                     console.log("Not found");
