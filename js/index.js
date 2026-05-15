@@ -43,10 +43,8 @@ async function getData() {
         }
 
         const pokeData = await response.json();
-        console.log(pokeData);
         //const result = `${pokeData}.${typeValue}.${nameValue}`
         const result = `${pokeData}`
-        console.log(result);
         
 
         // * Insert data onto webpage
@@ -110,14 +108,12 @@ async function getData() {
                 }
                 bsttotal += pokestat;
             }
-            console.log(bstbar);
             removeItem = bstbar.classList.item(1);
                 
             if (removeItem != null) {
                 bstbar.classList.remove(removeItem);
             }
 
-            console.log(bsttotal);
             bstbar.innerHTML = bsttotal;
             widthValue = (bsttotal * 100) / 780;
             bstbar.setAttribute("aria-valuenow",widthValue);
@@ -149,8 +145,6 @@ async function getData() {
                 throw new Error(`response status: ${response.status}`);
                 }
                     const abilityData = await response.json();
-
-                    console.log(abilityData.effect_entries[abilityData.effect_entries.length - 1]);
                     
                     // carouselInd[0]: <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     // carouselInd[1-2]: <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -174,7 +168,6 @@ async function getData() {
                     var curSlide = document.getElementById("slide-" + (j+1));
                     var curLabel = document.getElementById("label-" + (j+1));
                     var curContent = document.getElementById("content-" + (j+1));
-                    console.log(curContent);
                     curLabel.innerHTML = current;
                     curContent.innerHTML = abilityData.effect_entries[abilityData.effect_entries.length - 1].short_effect;
 
@@ -211,6 +204,35 @@ async function getData() {
 
             }
 
+            // Find the pokemon's type and display it.
+            for (var t=0; t<pokeData.types.length; t++){
+
+                var displayType = document.getElementById(`typeText-${t+1}`)
+                var displayTypeImg = document.getElementById(`typeImg-${t+1}`)
+                console.log(displayType)
+
+                var thisType = pokeData.types[t].type.name;
+                var typeIndex = pokeType.indexOf(thisType);
+
+                if (typeIndex !== -1) {
+
+                    displayType.innerHTML =thisType;
+                    
+                    displayTypeImg.setAttribute("src",typeImgUrl);
+                    
+                }else{
+                    console.log("Not found");
+                }
+
+                if (pokeData.types.length == 1) {
+                    displayType = document.getElementById(`typeText-${t+2}`)
+                    displayTypeImg = document.getElementById(`typeImg-${t+2}`)
+
+                    displayType.innerHTML="N/A";
+                    displayTypeImg.setAttribute("src", "");
+                }
+
+            }
             
         }
 

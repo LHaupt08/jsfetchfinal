@@ -34,3 +34,13 @@ body {
     width:20rem;
     image-rendering: pixelated;
 }
+
+p.stats {
+    text-align:end;
+    font-size:1.2rem;
+}
+
+img.carousel-img {
+    max-height:25.7rem;
+    margin:auto;
+}
