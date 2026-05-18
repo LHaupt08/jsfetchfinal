@@ -92,7 +92,7 @@ async function getData() {
 
                     if (curLang === "en"){
 
-                        if (speciesData.flavor_text_entries[p].version.name !== "blue"){
+                        if (speciesData.flavor_text_entries[p].version.name !== "blue" || speciesData.flavor_text_entries[p].version.name !== "lets-go-eevee"){
                             pokedexEntrys[pokedexIndex]=speciesData.flavor_text_entries[p].flavor_text;
                             pokedexGame[pokedexIndex]=speciesData.flavor_text_entries[p].version.name;
                             
@@ -101,15 +101,15 @@ async function getData() {
 
                             pokedexIndex += 1;
                         }
-                        // Find better thing to display this on with conjunction with current bootstrap data.
-
-                        // ! Send data to a function.
-                        
+                        // Find better thing to display this on with conjunction with current bootstrap data.   
 
                     }
 
                 }
 
+                // ! Send data to a function.
+
+                        pokedexEntries(pokedexEntrys, pokedexGame, pokedexIndex);
 
             }catch (error) {
                 console.error(error.message);
@@ -250,7 +250,6 @@ async function getData() {
 
                 var displayType = document.getElementById(`typeText-${t+1}`)
                 var displayTypeImg = document.getElementById(`typeImg-${t+1}`)
-                console.log(displayType)
 
                 var thisType = pokeData.types[t].type.name;
                 var typeIndex = pokeType.indexOf(thisType);

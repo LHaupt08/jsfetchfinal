@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
     <link href="./css/style.css" rel="stylesheet" />
+    <script src="./js/pokedexEntry.js" async></script>
     <script src="./js/types.js" async></script>
     <script src="./js/index.js" async></script>
 
@@ -336,7 +337,8 @@
 
             <div class="col-12 bg-secondary text-light rounded-1 m-0 mx-1 p-0 px-1">
 
-                <h2>Pokedex Entrys Appear Here... <span class="badge text-bg-dark" id="pokeEntry">Game</span></h2>
+                <h2 class="m-1" id="pokeEntry">Pokedex Entrys Appear Here...</h2>
+                <h2 class="m-1"><span class="badge text-bg-dark text-capitalize" id="pokeEntryGame">Game</span></h2>
 
             </div>
 
@@ -344,56 +346,53 @@
 
         <div class="row py-1">
 
-            <div class="col-12 bg-secondary text-light rounded-1 mx-1 p-0 px-1">
+            <div class="col-12 bg-secondary text-light rounded-1 mx-1 p-1">
 
                 <nav aria-label="Page navigation example" data-bs-theme="dark">
-                    <ul class="pagination pagination-sm flex-wrap justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <ul class="pagination pagination-sm flex-wrap justify-content-center m-0">
 
-                        <li class="page-item"><a class="page-link" href="#" id="red">Red/Blue</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="yellow">Yellow</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="red">Red/Blue</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="yellow">Yellow</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="gold">Gold</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="silver">Silver</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="crystal">Crystal</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="gold">Gold</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="silver">Silver</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="crystal">Crystal</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="ruby">Ruby</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="saphire">Saphire</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="emerald">Emerald</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="ruby">Ruby</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="sapphire">Sapphire</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="emerald">Emerald</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Fire Red</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">Leaf Green</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="firered">Fire Red</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="leafgreen">Leaf Green</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Diamond</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">Pearl</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">Platinum</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="diamond">Diamond</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="pearl">Pearl</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="platinum">Platinum</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Heart Gold</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">Soul Silver</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="heartgold">Heart Gold</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="soulsilver">Soul Silver</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Black</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">White</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="black">Black</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="white">White</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Black 2</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">White 2</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="black-2">Black 2</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="white-2">White 2</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">X</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">Y</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="x">X</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="y">Y</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Omega Ruby</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">Alpha Saphire</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="omega-ruby">Omega Ruby</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="alpha-sapphire">Alpha Sapphire</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Lets Go Pikachu/Eevee</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="lets-go-pikachu">Lets Go Pikachu/Eevee</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Sword</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">Shield</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="sword">Sword</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="shield">Shield</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Legends Arceus</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="legends-arceus">Legends Arceus</a></li>
 
-                        <li class="page-item"><a class="page-link" href="#" id="">Scarlet</a></li>
-                        <li class="page-item"><a class="page-link" href="#" id="">Violet</a></li>
-
-                        <li class="page-item"><a class="page-link" href="#" id="">Next</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="scarlet">Scarlet</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#" id="violet">Violet</a></li>
                     </ul>
                 </nav>
 
