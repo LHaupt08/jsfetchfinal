@@ -22,6 +22,10 @@ var statbar = [
 
 var bstbar = document.getElementById("bstbar");
 
+var moveMarquee = document.getElementById("moveScroll");
+
+var pokeTest = document.getElementById("pokedexTest");
+
 // *Function for taking data from api
 async function getData() {
     console.clear();
@@ -57,6 +61,8 @@ async function getData() {
             pokename.innerHTML = pokeData.name;
 
             // * Pokemon Dex Number
+
+            // ! Certain Forms (ex: Zygarde-10) give an error here. The api accepts it for looking up the pokemon but not the pokemon species. need to determine a way to convert the value from the search input and change it so this can understand it.
             const speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
 
             try {
@@ -70,9 +76,44 @@ async function getData() {
 
                 pokedexNum.innerHTML = "#" + speciesData.pokedex_numbers[0].entry_number;
 
+                if (speciesData.evolves_from_species !== null) {
+                    // window.alert(speciesData.evolves_from_species.name) use this data later :)
+                }
+
+                var pokedexEntrys = [];
+                var pokedexGame = [];
+                var pokedexIndex=0;
+
+                var curEntry = [];
+
+                for (var p=0; p < speciesData.flavor_text_entries.length; p++){
+
+                    var curLang = speciesData.flavor_text_entries[p].language.name;
+
+                    if (curLang === "en"){
+
+                        if (speciesData.flavor_text_entries[p].version.name !== "blue"){
+                            pokedexEntrys[pokedexIndex]=speciesData.flavor_text_entries[p].flavor_text;
+                            pokedexGame[pokedexIndex]=speciesData.flavor_text_entries[p].version.name;
+                            
+                            
+                            curEntry[pokedexIndex] = pokedexEntrys[pokedexIndex] + " " + pokedexGame[pokedexIndex] + " " + pokedexIndex + " ";
+
+                            pokedexIndex += 1;
+                        }
+                        // Find better thing to display this on with conjunction with current bootstrap data.
+
+                        // ! Send data to a function.
+                        
+
+                    }
+
+                }
+
 
             }catch (error) {
                 console.error(error.message);
+                window.alert(error.message);
             }
 
 
@@ -218,7 +259,8 @@ async function getData() {
 
                     displayType.innerHTML =thisType;
                     
-                    displayTypeImg.setAttribute("src",pokeTypeImg[t]);
+                    displayTypeImg.setAttribute("src",pokeTypeImg[typeIndex]);
+                    displayTypeImg.style.display="block";
                     
                 }else{
                     console.log("Not found");
@@ -230,9 +272,21 @@ async function getData() {
 
                     displayType.innerHTML="N/A";
                     displayTypeImg.setAttribute("src", "");
+                    displayTypeImg.style.display="none";
                 }
 
             }
+
+            var moveText= "";
+
+            for (var m=0; m < pokeData.moves.length; m++){
+
+                var curMove = pokeData.moves[m].move.name;
+                moveText += curMove + " ";
+
+            }
+
+            moveMarquee.innerHTML = moveText;
             
         }
 

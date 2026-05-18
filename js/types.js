@@ -1,3 +1,5 @@
+"use strict";
+
 window.addEventListener('load', getTypes)
 var pokeType = [];
 var pokeTypeImg = [];
@@ -17,7 +19,7 @@ async function getTypes() {
                 var typeName = typesData.name;
                 pokeType[t]=typeName;
 
-                pokeTypeImg[t]=typesData.sprites["generation-ix"]["scarlet-violet"]["symbol-icon"];
+                pokeTypeImg[t]=typesData["sprites"]["generation-ix"]["scarlet-violet"]["symbol_icon"];
 
             }catch (error) {
                 console.error(error.message);
