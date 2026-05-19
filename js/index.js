@@ -1,5 +1,10 @@
 "use strict";
 
+// TODO: Make dropdowns functional...
+// TODO: Filter Data based on dropdowns...
+// TODO: Choose Better Fonts...
+// TODO: Continue to make website look better...
+
 var groupDropdown = document.getElementById("group");
 var typeDropdown = document.getElementById("type");
 var nameDropdown = document.getElementById("name");
@@ -8,6 +13,7 @@ var searchBar = document.getElementById("search");
 var sumbit = document.getElementById("sumbit");
 
 var pokeimg = document.getElementById("pokeimg");
+var displaySprite;
 var pokename = document.getElementById("pokeName");
 var pokedexNum = document.getElementById("pokedexNum");
 
@@ -26,7 +32,9 @@ var moveMarquee = document.getElementById("moveScroll");
 
 var pokeTest = document.getElementById("pokedexTest");
 
-// *Function for taking data from api
+var requestAllData = false;
+
+// *First request from the API. It takes the search request and sends it, recieving data back. It also uses the search to obtain more data that might not be included in the first catagory, Pokemon.
 async function getData() {
     console.clear();
 
@@ -51,19 +59,39 @@ async function getData() {
         const result = `${pokeData}`
         
 
-        // * Insert data onto webpage
+        // * General result.
 
         if (result == pokeData) {
+            requestAllData = true;
 
-            pokeimg.src = pokeData.sprites.front_default;
-            pokeimg.style.display = "block";
+            displaySprite = "front_default";
+            displayPokemon(displaySprite, pokeData);
 
-            pokename.innerHTML = pokeData.name;
+            // ! If we get to being able to request specific data, make sure to either set the specific request to result, or replace the result variable.
+            pokemonSpecies(searchInput, requestAllData, result);
 
-            // * Pokemon Dex Number
+            displayStats(pokeData);
 
-            // ! Certain Forms (ex: Zygarde-10) give an error here. The api accepts it for looking up the pokemon but not the pokemon species. need to determine a way to convert the value from the search input and change it so this can understand it.
-            const speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
+            var pokeAble = pokeData.abilities;
+            pokemonAbilities(pokeAble, pokeData);
+
+            displayTypes(pokeData);
+
+            displayMoves(pokeData);
+            
+        }
+
+    }catch (error) {
+        typingError();
+        console.error(error.message);
+    }
+
+    // ? Picks up Pokemon Species Data. In additon, directs data towards several functions that uses it's data.
+    async function pokemonSpecies(searchInput, requestAllData, result) {
+
+        // ! Certain Forms (ex: Zygarde-10) give an error here. The api accepts it for looking up the pokemon but not the pokemon species. need to determine a way to convert the value from the search input and change it so this can understand it.
+
+        const speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
 
             try {
                 const response = await fetch(speciesurl, {
@@ -74,51 +102,150 @@ async function getData() {
             }
                 const speciesData = await response.json();
 
-                pokedexNum.innerHTML = "#" + speciesData.pokedex_numbers[0].entry_number;
+                if (requestAllData == true) {
 
-                if (speciesData.evolves_from_species !== null) {
-                    // window.alert(speciesData.evolves_from_species.name) use this data later :)
+                    pokedexNumber(speciesData);
+                    gatherForEntries(speciesData);
+
                 }
 
-                var pokedexEntrys = [];
-                var pokedexGame = [];
-                var pokedexIndex=0;
+                function pokedexNumber(speciesData){
 
-                var curEntry = [];
+                    pokedexNum.innerHTML = "#" + speciesData.pokedex_numbers[0].entry_number;
 
-                for (var p=0; p < speciesData.flavor_text_entries.length; p++){
+                }
 
-                    var curLang = speciesData.flavor_text_entries[p].language.name;
+                function evolvesFrom(speciesData){
+                    if (speciesData.evolves_from_species !== null) {
+                        // window.alert(speciesData.evolves_from_species.name) use this data later :)
+                    }
+                }
 
-                    if (curLang === "en"){
+                function gatherForEntries(speciesData){
+                    var pokedexEntrys = [];
+                        var pokedexGame = [];
+                        var pokedexIndex=0;
 
-                        if (speciesData.flavor_text_entries[p].version.name !== "blue" || speciesData.flavor_text_entries[p].version.name !== "lets-go-eevee"){
-                            pokedexEntrys[pokedexIndex]=speciesData.flavor_text_entries[p].flavor_text;
-                            pokedexGame[pokedexIndex]=speciesData.flavor_text_entries[p].version.name;
-                            
-                            
-                            curEntry[pokedexIndex] = pokedexEntrys[pokedexIndex] + " " + pokedexGame[pokedexIndex] + " " + pokedexIndex + " ";
+                        var curEntry = [];
 
-                            pokedexIndex += 1;
+                        for (var p=0; p < speciesData.flavor_text_entries.length; p++){
+
+                            var curLang = speciesData.flavor_text_entries[p].language.name;
+
+                            if (curLang === "en"){
+
+                                if (speciesData.flavor_text_entries[p].version.name !== "blue" || speciesData.flavor_text_entries[p].version.name !== "lets-go-eevee"){
+                                    pokedexEntrys[pokedexIndex]=speciesData.flavor_text_entries[p].flavor_text;
+                                    pokedexGame[pokedexIndex]=speciesData.flavor_text_entries[p].version.name;
+                                    
+                                    
+                                    curEntry[pokedexIndex] = pokedexEntrys[pokedexIndex] + " " + pokedexGame[pokedexIndex] + " " + pokedexIndex + " ";
+
+                                    pokedexIndex += 1;
+                                }
+
+                            }
+
                         }
-                        // Find better thing to display this on with conjunction with current bootstrap data.   
+
+                        // Send obtained data to a function.
+
+                    pokedexEntries(pokedexEntrys, pokedexGame, pokedexIndex);
+                }
+                
+
+            }catch (error) {
+                pokedexError();
+                console.error(error.message);
+            }
+
+    }
+
+    // ? Displays the pokemon's abilities on the third element (the carousel).
+    async function pokemonAbilities(pokeAble, pokeData){
+
+        for(var j=0; j < pokeData.abilities.length; j++){
+            const current = pokeAble[j].ability.name;
+
+            const abilityurl = `https://pokeapi.co/api/v2/ability/${current}`;
+
+            try {
+                const response = await fetch(abilityurl, {
+                    method: "GET"
+            });
+            if (!response.ok) {
+            throw new Error(`response status: ${response.status}`);
+            }
+                const abilityData = await response.json();
+
+                var curSlide = document.getElementById("slide-" + (j+1));
+                var curLabel = document.getElementById("label-" + (j+1));
+                var curContent = document.getElementById("content-" + (j+1));
+                curLabel.innerHTML = current;
+
+                for (var q = 0; q < abilityData.effect_entries.length; q++) {
+
+                    if (abilityData.effect_entries[q].language.name == "en"){
+
+                        curContent.innerHTML = abilityData.effect_entries[q].short_effect;
+                        continue;
 
                     }
 
                 }
 
-                // ! Send data to a function.
 
-                        pokedexEntries(pokedexEntrys, pokedexGame, pokedexIndex);
+                if (pokeData.abilities.length == 1 && j==0) {
+
+                    for (var g=0; g < 2; g++){
+
+                    curLabel = document.getElementById("label-" + (j+2+g));
+                    curContent = document.getElementById("content-" + (j+2+g));
+
+                    curLabel.innerHTML = "n/a";
+                    curContent.innerHTML = "n/a";
+                    
+                    }
+                
+
+                } else if (pokeData.abilities.length == 2 && j==1) {
+
+                    curLabel = document.getElementById("label-" + (j+2));
+                    curContent = document.getElementById("content-" + (j+2));
+
+                    curLabel.innerHTML = "n/a";
+                    curContent.innerHTML = "n/a";
+
+                }
+
+
 
             }catch (error) {
                 console.error(error.message);
                 window.alert(error.message);
             }
 
+        }
 
-            // * Stats
-            var bsttotal=0;
+    }
+
+
+
+
+
+    // * Inserts the Pokemon's image and name into the first box
+    function displayPokemon(displaySprite, pokeData) {
+
+        pokeimg.src = pokeData.sprites.front_default;
+        pokeimg.style.display = "block";
+
+        pokename.innerHTML = pokeData.name;
+
+    }
+
+    function displayStats(pokeData){
+
+        var bsttotal=0;
             for (var i=0; i < pokeData.stats.length; i++) {
 
                 var removeItem = statbar[i].classList.item(1);
@@ -149,6 +276,7 @@ async function getData() {
                 }
                 bsttotal += pokestat;
             }
+
             removeItem = bstbar.classList.item(1);
                 
             if (removeItem != null) {
@@ -170,73 +298,11 @@ async function getData() {
                 bstbar.classList.add("bg-info");
             }
 
+    }
 
-            var pokeAble = pokeData.abilities;
+    // * Finds the Pokemon's Type(s) and displays them. if the pokemon beforehand had two types and the next has one, it removes the 2nd type's image and replaces the text to N/A
+    function displayTypes(pokeData){
 
-            for(var j=0; j < pokeData.abilities.length; j++){
-                const current = pokeAble[j].ability.name;
-
-                const abilityurl = `https://pokeapi.co/api/v2/ability/${current}`;
-
-                try {
-                    const response = await fetch(abilityurl, {
-                        method: "GET"
-                });
-                if (!response.ok) {
-                throw new Error(`response status: ${response.status}`);
-                }
-                    const abilityData = await response.json();
-
-                    var curSlide = document.getElementById("slide-" + (j+1));
-                    var curLabel = document.getElementById("label-" + (j+1));
-                    var curContent = document.getElementById("content-" + (j+1));
-                    curLabel.innerHTML = current;
-
-                    for (var q = 0; q < abilityData.effect_entries.length; q++) {
-
-                        if (abilityData.effect_entries[q].language.name == "en"){
-
-                            curContent.innerHTML = abilityData.effect_entries[q].short_effect;
-                            continue;
-
-                        }
-
-                    }
-
-
-                    if (pokeData.abilities.length == 1 && j==0) {
-
-                        for (var g=0; g < 2; g++){
-
-                        curLabel = document.getElementById("label-" + (j+2+g));
-                        curContent = document.getElementById("content-" + (j+2+g));
-
-                        curLabel.innerHTML = "n/a";
-                        curContent.innerHTML = "n/a";
-                        
-                        }
-                    
-
-                    } else if (pokeData.abilities.length == 2 && j==1) {
-
-                        curLabel = document.getElementById("label-" + (j+2));
-                        curContent = document.getElementById("content-" + (j+2));
-
-                        curLabel.innerHTML = "n/a";
-                        curContent.innerHTML = "n/a";
-
-                    }
-
-
-
-                }catch (error) {
-                    console.error(error.message);
-                    window.alert(error.message);
-                }
-
-            }
-
-            // Find the pokemon's type and display it.
             for (var t=0; t<pokeData.types.length; t++){
 
                 var displayType = document.getElementById(`typeText-${t+1}`)
@@ -267,22 +333,24 @@ async function getData() {
 
             }
 
-            var moveText= "";
+    }
+
+    // * Displays each move a pokemon can learn (in no particular order) and applies that string to a marquee.
+    function displayMoves(pokeData){
+        var moveText= "";
 
             for (var m=0; m < pokeData.moves.length; m++){
 
                 var curMove = pokeData.moves[m].move.name;
-                moveText += curMove + " ";
+                moveText += curMove + ", ";
 
             }
 
             moveMarquee.innerHTML = moveText;
-            
-        }
-
-    }catch (error) {
-        console.error(error.message);
     }
 
-    
+    function typingError(){
+        moveMarquee.innerHTML = "Could not retrieve pokemon data. Make sure you have typed the pokemon's name right.";
+    }
+
 }

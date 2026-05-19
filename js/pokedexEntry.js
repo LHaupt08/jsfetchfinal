@@ -3,15 +3,15 @@
 var entryText = document.getElementById("pokeEntry");
 var entryTextGame = document.getElementById("pokeEntryGame");
 
+var gameLinks = document.querySelectorAll("li.page-item > a");
+var gameButtons = document.querySelectorAll("li.page-item");
+
 function pokedexEntries(pokedexEntrys, pokedexGame, pokedexIndex) {
 
     entryText.innerHTML="Click on a tab below to see the pokedex entry..";
     entryTextGame.innerHTML="This will show the game..";
     
     // Select all of the anchor tags with games and whenever one is clicked, display it's entry at a single spot.
-
-    var gameLinks = document.querySelectorAll("li.page-item > a");
-    var gameButtons = document.querySelectorAll("li.page-item");
 
     var gameLinksIds = [];
 
@@ -56,5 +56,20 @@ function pokedexEntries(pokedexEntrys, pokedexGame, pokedexIndex) {
         }
 
     }
+
+}
+
+function pokedexError(){
+
+    for (var f=0; f < gameButtons.length; f++){
+
+        if (!gameButtons[f].classList.contains("disabled")){
+            gameButtons[f].classList.add("disabled");
+        }
+
+    }
+
+    entryText.innerHTML = "Unable to retrieve pokedex data for this pokemon.";
+    entryTextGame.innerHTML = "This pokemon may be a form that does not currently have data for it's pokedex entries.";
 
 }
