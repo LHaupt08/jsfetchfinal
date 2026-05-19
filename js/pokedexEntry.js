@@ -3,10 +3,10 @@
 var entryText = document.getElementById("pokeEntry");
 var entryTextGame = document.getElementById("pokeEntryGame");
 
-entryText.innerHTML="Pokedex Entrys Appear Here...";
-entryTextGame.innerHTML="Game";
-
 function pokedexEntries(pokedexEntrys, pokedexGame, pokedexIndex) {
+
+    entryText.innerHTML="Click on a tab below to see the pokedex entry..";
+    entryTextGame.innerHTML="This will show the game..";
     
     // Select all of the anchor tags with games and whenever one is clicked, display it's entry at a single spot.
 
@@ -28,8 +28,6 @@ function pokedexEntries(pokedexEntrys, pokedexGame, pokedexIndex) {
                     
                     if (gameButtons[c].classList.contains("disabled")){
                         gameButtons[c].classList.remove("disabled");
-
-                        continue;
                     }
 
                 }

@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
 
+@property --priColor {
+    syntax: "<color>";
+    initial-value: #ffffff;
+    inherits: false;
+    }
+
+@property --sndColor {
+    syntax: "<color>";
+    initial-value: #000000;
+    inherits: false;
+    }
+
 body {
     background:#414141;
 }
@@ -27,9 +39,30 @@ body {
     height:25.7rem;
 }
 
+@keyframes backgroundForPokemon {
+
+    0%, 100% {
+
+        --priColor: #5353ff;
+        --sndColor: #7a7aff;
+
+    }
+
+    50% {
+
+        --priColor: #7a7aff;
+        --sndColor: #5353ff;
+
+    }
+
+}
+
 .pokeimg {
     height:20rem;
+    background:linear-gradient(0deg, var(--priColor), var(--sndColor), var(--priColor), var(--sndColor), var(--priColor), var(--sndColor), var(--priColor));
+    animation: backgroundForPokemon 3s linear infinite;
 }
+
 .pokeimg img {
     width:20rem;
     image-rendering: pixelated;

@@ -186,31 +186,22 @@ async function getData() {
                 throw new Error(`response status: ${response.status}`);
                 }
                     const abilityData = await response.json();
-                    
-                    // carouselInd[0]: <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    // carouselInd[1-2]: <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-
-                    /* carouselArea[0]: <div class="carousel-item active">
-                                            <img src="./img/pose.png" class="d-block w-100" alt="..." style="opacity: 0.5;">
-                                            <div class="carousel-caption d-none d-md-block">
-                                                <h5>First slide label</h5>
-                                                <p>Some representative placeholder content for the first slide.</p>
-                                            </div>
-                                        </div>*/
-                    
-                    /* carouselArea[1-2]: <div class="carousel-item">
-                                            <img src="..." class="d-block w-100" alt="...">
-                                                <div class="carousel-caption d-none d-md-block">
-                                                    <h5>Second slide label</h5>
-                                                    <p>Some representative placeholder content for the second slide.</p>
-                                                </div>
-                                            </div>*/
 
                     var curSlide = document.getElementById("slide-" + (j+1));
                     var curLabel = document.getElementById("label-" + (j+1));
                     var curContent = document.getElementById("content-" + (j+1));
                     curLabel.innerHTML = current;
-                    curContent.innerHTML = abilityData.effect_entries[abilityData.effect_entries.length - 1].short_effect;
+
+                    for (var q = 0; q < abilityData.effect_entries.length; q++) {
+
+                        if (abilityData.effect_entries[q].language.name == "en"){
+
+                            curContent.innerHTML = abilityData.effect_entries[q].short_effect;
+                            continue;
+
+                        }
+
+                    }
 
 
                     if (pokeData.abilities.length == 1 && j==0) {
