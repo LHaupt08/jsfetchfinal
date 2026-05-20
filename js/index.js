@@ -34,6 +34,12 @@ var pokeTest = document.getElementById("pokedexTest");
 
 var requestAllData = false;
 
+window.addEventListener("keyup", function(e) {
+    if (e.keyCode === 13) {
+        getData();
+    }
+});
+
 // *First request from the API. It takes the search request and sends it, recieving data back. It also uses the search to obtain more data that might not be included in the first catagory, Pokemon.
 async function getData() {
     console.clear();
@@ -360,6 +366,7 @@ async function getData() {
             for (var m=0; m < pokeData.moves.length; m++){
 
                 var curMove = pokeData.moves[m].move.name;
+                curMove = curMove.replace(/[-]+/g," ");
                 moveText += curMove + ", ";
 
             }
