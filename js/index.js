@@ -43,6 +43,8 @@ async function getData() {
     var nameValue = nameDropdown.value;
     var searchInput = searchBar.value.toLowerCase();
 
+    searchInput = searchInput.replace(/\s+/g,"-");
+
 
     const url = `https://pokeapi.co/api/v2/pokemon/${searchInput}`;
     try {
@@ -91,7 +93,20 @@ async function getData() {
 
         // ! Certain Forms (ex: Zygarde-10) give an error here. The api accepts it for looking up the pokemon but not the pokemon species. need to determine a way to convert the value from the search input and change it so this can understand it.
 
-        const speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
+        var formCheck = searchInput.replace(/^[a-z]*[A-Z]*/i, "")
+        formCheck = formCheck.replace(/[-]+/g,"");
+
+        if (formCheck !== "alola" && formCheck !== "galar" && formCheck !== "paldea") {
+
+            var normalEntry = searchInput.replace(/[-]+/g," ");
+            normalEntry = normalEntry.replace(/\b\W\w*/g,"");
+            var speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${normalEntry}`;
+
+        }else {
+
+            var speciesurl = `https://pokeapi.co/api/v2/pokemon-species/${searchInput}`;
+
+        }
 
             try {
                 const response = await fetch(speciesurl, {
@@ -239,7 +254,10 @@ async function getData() {
         pokeimg.src = pokeData.sprites.front_default;
         pokeimg.style.display = "block";
 
-        pokename.innerHTML = pokeData.name;
+        var pokemonName = pokeData.name;
+        pokemonName = pokemonName.replace(/[-]+/g," ");
+
+        pokename.innerHTML = pokemonName;
 
     }
 
