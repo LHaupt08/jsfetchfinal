@@ -7,13 +7,15 @@
 
 var groupDropdown = document.getElementById("group");
 var typeDropdown = document.getElementById("type");
-var nameDropdown = document.getElementById("name");
+
+var groupValue = groupDropdown.value;
+var typeValue = typeDropdown.value;
 
 var searchBar = document.getElementById("search");
 var sumbit = document.getElementById("sumbit");
 
 var pokeimg = document.getElementById("pokeimg");
-var displaySprite;
+
 var pokename = document.getElementById("pokeName");
 var pokedexNum = document.getElementById("pokedexNum");
 
@@ -31,8 +33,206 @@ var bstbar = document.getElementById("bstbar");
 var moveMarquee = document.getElementById("moveScroll");
 
 var pokeTest = document.getElementById("pokedexTest");
+//----------------------------------------------------------------------------------------------------------------
 
-var requestAllData = false;
+var allType = document.getElementById("typeAll");
+var allName = document.getElementById("nameAll");
+
+var pokedex_main = document.getElementById("pokedex-main");
+var pokedex_stats = document.getElementById("pokedex-stats");
+var pokedex_abilities = document.getElementById("pokedex-abilities");
+var pokedex_types = document.getElementById("pokedex-types");
+var pokedex_moves = document.getElementById("pokedex-moves");
+var pokedex_entries = document.querySelectorAll("#pokedex-entries")
+
+var pokeDataDisplay;
+var pokeSpeciesDisplay;
+var pokeAbilityDisplay;
+
+typeDropdown.style.display = "none";
+
+var groupTypes = [
+    "Image",
+    "Stats",
+    "Types",
+    "Moves"
+];
+
+var ammountOfOptions = document.querySelectorAll("#type option");
+
+// If we change off of all, we need to:
+    // Lower the opacity of the elements that do not belong to those catagories
+    // Clear said element's html
+    // Verify that search only triggers on the specified values.
+
+groupDropdown.onchange = function(){
+
+    groupValue = groupDropdown.value;
+    typeValue = typeDropdown.value;
+
+
+    if (groupValue == "all"){
+
+        if (ammountOfOptions.length >= 5){
+            for (var h = 0; h < groupTypes.length; h++){
+                var childElem = document.getElementById(groupTypes[h].toLowerCase());
+                typeDropdown.removeChild(childElem);
+            }
+        }
+
+        typeDropdown.style.display = "none";
+
+        pokedex_main.style.opacity = "1";
+        pokedex_stats.style.opacity = "1";
+        pokedex_types.style.opacity = "1";
+        pokedex_moves.style.opacity = "1";
+
+        pokedex_abilities.style.opacity = "1";
+
+
+        for (var z = 0; z < pokedex_entries.length; z++){
+            pokedex_entries[z].style.opacity = "1";
+        }
+
+        ammountOfOptions = document.querySelectorAll("#type option");
+
+    }else if (groupValue == "pokemon"){
+        // Displays:
+            // Pokemon Image and it's name
+            // It's stats
+            // It's Types
+            // The moves it can learn
+        typeDropdown.style.display = "block";
+
+        if (ammountOfOptions.length <=4)
+        for (var d = 0; d < groupTypes.length; d++){
+            var curElement = document.createElement("option");
+            curElement.innerHTML = groupTypes[d];
+            curElement.value = groupTypes[d].toLowerCase();
+            curElement.setAttribute("id", groupTypes[d].toLowerCase());
+            typeDropdown.appendChild(curElement);
+        }
+
+        pokedex_main.style.opacity = "1";
+        pokedex_stats.style.opacity = "1";
+        pokedex_types.style.opacity = "1";
+        pokedex_moves.style.opacity = "1";
+
+        pokedex_abilities.style.opacity = "0.05";
+
+        for (var z = 0; z < pokedex_entries.length; z++){
+            pokedex_entries[z].style.opacity = "0.05";
+        }
+
+        ammountOfOptions = document.querySelectorAll("#type option");
+
+    }else if (groupValue == "pokemon-species"){
+        // Displays:
+            // Pokedex Entries
+
+        typeDropdown.style.display = "none";
+        if (ammountOfOptions.length >= 4){
+            for (var n = 0; n < groupTypes.length; n++){
+                var childElem = document.getElementById(groupTypes[n].toLowerCase());
+                typeDropdown.removeChild(childElem);
+            }
+        }
+
+        pokedex_main.style.opacity = "0.05";
+        pokedex_stats.style.opacity = "0.05";
+        pokedex_types.style.opacity = "0.05";
+        pokedex_moves.style.opacity = "0.05";
+
+        pokedex_abilities.style.opacity = "0.05";
+
+        for (var z = 0; z < pokedex_entries.length; z++){
+            pokedex_entries[z].style.opacity = "1";
+        }
+
+        ammountOfOptions = document.querySelectorAll("#type option");
+
+
+    }else if (groupValue == "abilities"){
+        // Displays:
+            // Abilities
+
+        typeDropdown.style.display = "none";
+
+        if (ammountOfOptions.length >= 4){
+            for (var h = 0; h < groupTypes.length; h++){
+                var childElem = document.getElementById(groupTypes[h].toLowerCase());
+                typeDropdown.removeChild(childElem);
+            }
+        }
+
+        pokedex_main.style.opacity = "0.05";
+        pokedex_stats.style.opacity = "0.05";
+        pokedex_types.style.opacity = "0.05";
+        pokedex_moves.style.opacity = "0.05";
+
+        pokedex_abilities.style.opacity = "1";
+
+        for (var z = 0; z < pokedex_entries.length; z++){
+            pokedex_entries[z].style.opacity = "0.05";
+        }
+
+        ammountOfOptions = document.querySelectorAll("#type option");
+
+    }
+
+}
+
+
+
+
+
+
+
+
+typeDropdown.onchange = function() {
+
+    typeValue = typeDropdown.value;
+
+    if (typeValue == "image" && groupValue == "pokemon"){
+
+        pokedex_main.style.opacity = "1";
+        pokedex_stats.style.opacity = "0.05";
+        pokedex_types.style.opacity = "0.05";
+        pokedex_moves.style.opacity = "0.05";
+        
+    }else if (typeValue == "stats" && groupValue == "pokemon"){
+
+        pokedex_main.style.opacity = "0.05";
+        pokedex_stats.style.opacity = "1";
+        pokedex_types.style.opacity = "0.05";
+        pokedex_moves.style.opacity = "0.05";
+
+    }else if (typeValue == "types" && groupValue == "pokemon"){
+
+        pokedex_main.style.opacity = "0.05";
+        pokedex_stats.style.opacity = "0.05";
+        pokedex_types.style.opacity = "1";
+        pokedex_moves.style.opacity = "0.05";
+        
+    }else if (typeValue == "moves" && groupValue == "pokemon"){
+
+        pokedex_main.style.opacity = "0.05";
+        pokedex_stats.style.opacity = "0.05";
+        pokedex_types.style.opacity = "0.05";
+        pokedex_moves.style.opacity = "1";
+        
+    }else {
+
+        pokedex_main.style.opacity = "1";
+        pokedex_stats.style.opacity = "1";
+        pokedex_types.style.opacity = "1";
+        pokedex_moves.style.opacity = "1";
+
+    }
+
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
 
 window.addEventListener("keyup", function(e) {
     if (e.keyCode === 13) {
@@ -44,15 +244,14 @@ window.addEventListener("keyup", function(e) {
 async function getData() {
     console.clear();
 
-    var groupValue = groupDropdown.value;
-    var typeValue = typeDropdown.value;
-    var nameValue = nameDropdown.value;
+    groupValue = groupDropdown.value;
+    typeValue = typeDropdown.value;
     var searchInput = searchBar.value.toLowerCase();
 
     searchInput = searchInput.replace(/\s+/g,"-");
 
 
-    const url = `https://pokeapi.co/api/v2/pokemon/${searchInput}`;
+    var url = `https://pokeapi.co/api/v2/pokemon/${searchInput}`;
     try {
 
         const response = await fetch(url, {
@@ -63,20 +262,17 @@ async function getData() {
         }
 
         const pokeData = await response.json();
-        //const result = `${pokeData}.${typeValue}.${nameValue}`
         const result = `${pokeData}`
         
 
         // * General result.
 
         if (result == pokeData) {
-            requestAllData = true;
 
-            displaySprite = "front_default";
-            displayPokemon(displaySprite, pokeData);
+            displayPokemon(pokeData);
 
             // ! If we get to being able to request specific data, make sure to either set the specific request to result, or replace the result variable.
-            pokemonSpecies(searchInput, requestAllData, result);
+            pokemonSpecies(searchInput);
 
             displayStats(pokeData);
 
@@ -95,7 +291,7 @@ async function getData() {
     }
 
     // ? Picks up Pokemon Species Data. In additon, directs data towards several functions that uses it's data.
-    async function pokemonSpecies(searchInput, requestAllData, result) {
+    async function pokemonSpecies(searchInput) {
 
         // ! Certain Forms (ex: Zygarde-10) give an error here. The api accepts it for looking up the pokemon but not the pokemon species. need to determine a way to convert the value from the search input and change it so this can understand it.
 
@@ -123,12 +319,8 @@ async function getData() {
             }
                 const speciesData = await response.json();
 
-                if (requestAllData == true) {
-
                     pokedexNumber(speciesData);
                     gatherForEntries(speciesData);
-
-                }
 
                 function pokedexNumber(speciesData){
 
@@ -137,9 +329,6 @@ async function getData() {
                 }
 
                 function evolvesFrom(speciesData){
-                    if (speciesData.evolves_from_species !== null) {
-                        // window.alert(speciesData.evolves_from_species.name) use this data later :)
-                    }
                 }
 
                 function gatherForEntries(speciesData){
@@ -243,7 +432,6 @@ async function getData() {
 
             }catch (error) {
                 console.error(error.message);
-                window.alert(error.message);
             }
 
         }
@@ -255,8 +443,7 @@ async function getData() {
 
 
     // * Inserts the Pokemon's image and name into the first box
-    function displayPokemon(displaySprite, pokeData) {
-
+    function displayPokemon(pokeData) {
         pokeimg.src = pokeData.sprites.front_default;
         pokeimg.style.display = "block";
 

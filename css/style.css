@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
 @property --priColor {
     syntax: "<color>";
@@ -18,14 +18,14 @@ body {
 
 .row {
     margin: 0px;
-    flex-wrap:nowrap;
 }
 
 .searchSelect {
-    font-family: "Bytesized", sans-serif;
+    font-family: "Pixelify Sans", sans-serif;
     font-size: 20px;
 
     display:flex;
+    flex-wrap: wrap;
     justify-content: center;
     background:none;
 }

@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
     <link href="./css/style.css" rel="stylesheet" />
+
     <script src="./js/pokedexEntry.js" async></script>
     <script src="./js/types.js" async></script>
     <script src="./js/index.js" async></script>
@@ -32,17 +33,10 @@
 
         </select>
 
-        <select id="type" class="bg-secondary">
+        <select id="type">
 
-            <option value=""></option>
+            <option value="all" id="typeAll">All Data</option>
             <!--<option value="sprites">SPRITES</option>-->
-
-        </select>
-
-        <select id="name" class="bg-secondary">
-
-            <option value=""></option>
-            <!--<option value="front_default">DEFAULT (FRONT)</option><-->
 
         </select>
 
@@ -60,7 +54,7 @@
 
 
             <!-- * Pokemon Display -->
-            <div class="col-4 text-light bg-secondary rounded-1 pokedisplay border-end border-dark">
+            <div class="col-12 col-md-4 text-light bg-secondary rounded-1 pokedisplay border-end border-dark" id="pokedex-main">
 
                 <div class="pokeimg d-flex justify-content-center rounded-4 mx-1">
 
@@ -76,18 +70,18 @@
 
 
             <!-- * Pokemon Stats -->
-            <div class="col-3 text-light bg-secondary rounded-1 pokedisplay d-flex flex-column justify-content-evenly ps-0 border-start border-end border-dark">
+            <div class="col-12 col-md-3 text-light bg-secondary rounded-1 pokedisplay d-flex flex-column justify-content-evenly ps-0 border-start border-end border-dark" id="pokedex-stats">
 
 
                 <div class="row w-auto">
 
-                    <div class="col-2 p-0">
+                    <div class="col-12 col-md-2 p-0">
 
                         <p class="m-0 me-1 stats">HP:</p>
 
                     </div>
 
-                    <div class="col-10 p-0">
+                    <div class="col-12 col-md-10 p-0">
 
                         <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250">
                             <div class="progress-bar" style="width: 0%" id="hpbar"></div>
@@ -100,13 +94,13 @@
 
                 <div class="row w-auto">
 
-                    <div class="col-2 p-0">
+                    <div class="col-12 col-md-2 p-0">
 
                         <p class="m-0 me-1 stats">ATK:</p>
 
                     </div>
 
-                    <div class="col-10 p-0">
+                    <div class="col-12 col-md-10 p-0">
 
                         <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250">
                             <div class="progress-bar" style="width: 0%" id="atkbar"></div>
@@ -119,13 +113,13 @@
 
                 <div class="row w-auto">
                     
-                    <div class="col-2 p-0">
+                    <div class="col-12 col-md-2 p-0">
 
                         <p class="m-0 me-1 stats">DEF:</p>
 
                     </div>
 
-                    <div class="col-10 p-0">
+                    <div class="col-12 col-md-10 p-0">
 
                         <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250">
                             <div class="progress-bar" style="width: 0%" id="defbar"></div>
@@ -138,13 +132,13 @@
 
                 <div class="row w-auto">
 
-                    <div class="col-2 p-0">
+                    <div class="col-12 col-md-2 p-0">
 
                         <p class="m-0 me-1 stats">SAT:</p>
 
                     </div>
 
-                    <div class="col-10 p-0">
+                    <div class="col-12 col-md-10 p-0">
 
                         <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250">
                             <div class="progress-bar" style="width: 0%" id="satbar"></div>
@@ -157,13 +151,13 @@
 
                 <div class="row w-auto">
 
-                    <div class="col-2 p-0">
+                    <div class="col-12 col-md-2 p-0">
 
                         <p class="m-0 me-1 stats">SDF:</p>
 
                     </div>
 
-                    <div class="col-10 p-0">
+                    <div class="col-12 col-md-10 p-0">
 
                         <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250">
                             <div class="progress-bar" style="width: 0%" id="sdfbar"></div>
@@ -176,13 +170,13 @@
 
                 <div class="row w-auto">
 
-                    <div class="col-2 p-0">
+                    <div class="col-12 col-md-2 p-0">
 
                         <p class="m-0 me-1 stats">SPD:</p>
 
                     </div>
 
-                    <div class="col-10 p-0">
+                    <div class="col-12 col-md-10 p-0">
 
                         <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="250">
                             <div class="progress-bar" style="width: 0%" id="spdbar"></div>
@@ -197,13 +191,13 @@
 
                 <div class="row w-auto">
 
-                    <div class="col-2 p-0">
+                    <div class="col-12 col-md-2 p-0">
 
                         <p class="m-0 me-1 stats">BST:</p>
 
                     </div>
 
-                    <div class="col-10 p-0">
+                    <div class="col-12 col-md-10 p-0">
 
                         <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="780">
                             <div class="progress-bar" id="bstbar" style="width: 0%"></div>
@@ -220,7 +214,7 @@
 
 
 
-            <div class="col-5 bg-secondary rounded-1 pokedisplay d-flex align-items-center px-0 border-start border-dark">
+            <div class="col-12 col-md-5 bg-secondary rounded-1 pokedisplay d-flex align-items-center px-0 border-start border-dark" id="pokedex-abilities">
 
                 <div id="carouselExample" class="carousel slide mx-1 w-100">
                     <div class="carousel-indicators slidebutton">
@@ -279,11 +273,11 @@
 
         <div class="row py-1">
 
-            <div class="col-4 bg-secondary text-light rounded-1 border-end border-dark">
+            <div class="col-12 col-md-4 bg-secondary text-light rounded-1 border-end border-dark" id="pokedex-types">
 
                 <div class="row">
 
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
 
                         <div class="row">
 
@@ -303,7 +297,7 @@
 
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
 
                         <div class="row">
 
@@ -328,7 +322,7 @@
             </div>
 
 
-            <div class="col-8 bg-secondary text-light rounded-1 m-0 p-0 align-content-center border-start border-dark">
+            <div class="col-12 col-md-8 bg-secondary text-light rounded-1 m-0 p-0 align-content-center border-start border-dark" id="pokedex-moves">
 
                 <marquee id="moveScroll" class="fs-4 m-0 p-0 text-capitalize">Moves this pokemon can learn will be displayed here...</marquee>
 
@@ -338,7 +332,7 @@
 
         <div class="row py-1">
 
-            <div class="col-12 bg-secondary text-light rounded-1 m-0 p-0 px-1">
+            <div class="col-12 bg-secondary text-light rounded-1 m-0 p-0 px-1" id="pokedex-entries">
 
                 <h2 class="m-1" id="pokeEntry">Pokedex Entrys Appear Here...</h2>
                 <h2 class="m-1"><span class="badge text-bg-dark text-capitalize" id="pokeEntryGame">Game</span></h2>
@@ -349,7 +343,7 @@
 
         <div class="row py-1">
 
-            <div class="col-12 bg-secondary text-light rounded-1 m-0 p-1">
+            <div class="col-12 bg-secondary text-light rounded-1 m-0 p-1 " id="pokedex-entries">
 
                 <nav aria-label="Page navigation example" data-bs-theme="dark">
                     <ul class="pagination pagination-sm flex-wrap justify-content-center m-0">
